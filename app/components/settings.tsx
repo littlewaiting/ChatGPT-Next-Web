@@ -965,7 +965,93 @@ export function Settings() {
       </ListItem>
     </>
   );
-
+  const bedrockConfigComponent = accessStore.provider ===
+    ServiceProvider.Bedrock && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.Bedrock.Region.Title}
+        subTitle={Locale.Settings.Access.Bedrock.Region.SubTitle}
+      >
+        <input
+          aria-label={Locale.Settings.Access.Bedrock.Region.Title}
+          type="text"
+          value={accessStore.awsRegion}
+          placeholder="us-west-2"
+          onChange={(e) =>
+            accessStore.update((access) => {
+              const region = e.currentTarget.value;
+               if (!/^[a-z]{2}-[a-z]+-\d+$/.test(region)) {
+                 showToast(Locale.Settings.Access.Bedrock.Region.Invalid);
+                 return;
+                }
+              access.awsRegion = region;
+              })
+          }
+        />
+      </ListItem>
+      <ListItem
+        title={Locale.Settings.Access.Bedrock.AccessKey.Title}
+        subTitle={Locale.Settings.Access.Bedrock.AccessKey.SubTitle}
+      >
+        <PasswordInput
+          aria-label={Locale.Settings.Access.Bedrock.AccessKey.Title}
+          value={accessStore.awsAccessKey}
+          type="text"
+          placeholder={Locale.Settings.Access.Bedrock.AccessKey.Placeholder}
+          onChange={(e) => {
+             accessStore.update((access) => {
+              const accessKey = e.currentTarget.value;
+              if (accessKey && accessKey.length !== 20) {
+                showToast(Locale.Settings.Access.Bedrock.AccessKey.Invalid);
+                return;
+              }
+              access.awsAccessKey = accessKey;
+            });
+          }}
+          maskWhenShow={true}
+        />
+      </ListItem>
+      <ListItem
+        title={Locale.Settings.Access.Bedrock.SecretKey.Title}
+        subTitle={Locale.Settings.Access.Bedrock.SecretKey.SubTitle}
+      >
+        <PasswordInput
+          aria-label={Locale.Settings.Access.Bedrock.SecretKey.Title}
+          value={accessStore.awsSecretKey}
+          type="text"
+          placeholder={Locale.Settings.Access.Bedrock.SecretKey.Placeholder}
+          onChange={(e) => {
+            accessStore.update((access) => {
+            const secretKey = e.currentTarget.value;
+            if (secretKey && secretKey.length !== 40) {
+              showToast(Locale.Settings.Access.Bedrock.SecretKey.Invalid);
+              return;
+            }
+              access.awsSecretKey = secretKey;
+            });
+          }}
+          maskWhenShow={true}
+        />
+      </ListItem>
+      <ListItem
+        title={Locale.Settings.Access.Bedrock.SessionToken.Title}
+        subTitle={Locale.Settings.Access.Bedrock.SessionToken.SubTitle}
+      >
+        <PasswordInput
+          aria-label={Locale.Settings.Access.Bedrock.SessionToken.Title}
+          value={accessStore.awsSessionToken}
+          type="text"
+          placeholder={Locale.Settings.Access.Bedrock.SessionToken.Placeholder}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.awsSessionToken = e.currentTarget.value),
+            );
+          }}
+          maskWhenShow={true}
+        />
+      </ListItem>
+    </>
+  );
   const baiduConfigComponent = accessStore.provider ===
     ServiceProvider.Baidu && (
     <>
@@ -1725,6 +1811,7 @@ export function Settings() {
                   </ListItem>
 
                   {openAIConfigComponent}
+                  {bedrockConfigComponent}
                   {azureConfigComponent}
                   {googleConfigComponent}
                   {anthropicConfigComponent}

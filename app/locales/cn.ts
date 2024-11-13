@@ -81,6 +81,7 @@ const cn = {
       Clear: "清除聊天",
       Settings: "对话设置",
       UploadImage: "上传图片",
+      UploadDocument: "上传文档",
     },
     Rename: "重命名对话",
     Typing: "正在输入…",
@@ -340,6 +341,35 @@ const cn = {
         Endpoint: {
           Title: "接口地址",
           SubTitle: "除默认地址外，必须包含 http(s)://",
+        },
+      },
+      Bedrock: {
+        Region: {
+          Title: "AWS Region",
+          SubTitle: "The AWS region where Bedrock service is located",
+          Placeholder: "us-west-2",
+          Invalid: "无效的 AWS 区域格式。示例：us-west-2",
+        },
+        AccessKey: {
+          Title: "AWS Access Key ID",
+          SubTitle: "Your AWS access key ID for Bedrock service",
+          Placeholder: "AKIA...",
+          Invalid: "无效的 AWS Access Key 格式。必须为20个字符。",
+        },
+        SecretKey: {
+          Title: "AWS Secret Access Key",
+          SubTitle: "Your AWS secret access key for Bedrock service",
+          Placeholder: "****",
+          Invalid: "无效的 AWS Secret Key 格式。必须为40个字符。",
+        },
+        SessionToken: {
+          Title: "AWS Session Token (Optional)",
+          SubTitle: "Your AWS session token if using temporary credentials",
+          Placeholder: "Optional session token",
+        },
+        Endpoint: {
+          Title: "AWS Bedrock Endpoint",
+          SubTitle: "Custom endpoint for AWS Bedrock API. Default: ",
         },
       },
       Azure: {

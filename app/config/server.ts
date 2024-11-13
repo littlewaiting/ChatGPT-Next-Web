@@ -12,6 +12,11 @@ declare global {
       BASE_URL?: string;
       OPENAI_ORG_ID?: string; // openai only
 
+      // bedrock only
+      BEDROCK_REGION?: string;
+      BEDROCK_API_KEY?: string;
+      BEDROCK_API_SECRET?: string;
+
       VERCEL?: string;
       BUILD_MODE?: "standalone" | "export";
       BUILD_APP?: string; // is building desktop app
@@ -143,7 +148,7 @@ export const getServerSideConfig = () => {
   }
 
   const isStability = !!process.env.STABILITY_API_KEY;
-
+  const isBedrock = !!process.env.BEDROCK_API_KEY;
   const isAzure = !!process.env.AZURE_URL;
   const isGoogle = !!process.env.GOOGLE_API_KEY;
   const isAnthropic = !!process.env.ANTHROPIC_API_KEY;
@@ -172,6 +177,11 @@ export const getServerSideConfig = () => {
     baseUrl: process.env.BASE_URL,
     apiKey: getApiKey(process.env.OPENAI_API_KEY),
     openaiOrgId: process.env.OPENAI_ORG_ID,
+
+    isBedrock,
+    awsRegion: process.env.AWS_REGION,
+    awsAccessKey: process.env.AWS_ACCESS_KEY,
+    awsSecretKey: process.env.AWS_SECRET_KEY,
 
     isStability,
     stabilityUrl: process.env.STABILITY_URL,
